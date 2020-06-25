@@ -15,7 +15,12 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     restart: on-failure
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   cardano-node:
     image: inputoutput/cardano-node:latest
     environment:
@@ -23,7 +28,12 @@ services:
     volumes:
       - node-db:/data/db
       - node-ipc:/ipc
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   cardano-db-sync:
     image: inputoutput/cardano-db-sync:latest
     environment:
@@ -40,7 +50,12 @@ services:
     volumes:
       - node-ipc:/node-ipc
     restart: on-failure
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   cardano-explorer-api:
     image: inputoutput/cardano-explorer-api:latest
     depends_on:
@@ -56,7 +71,12 @@ services:
     ports:
       - 8100:8100
     restart: on-failure
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
   cardano-submit-api:
     image: inputoutput/cardano-submit-api:latest
     environment:
@@ -68,7 +88,12 @@ services:
     ports:
       - 8101:8101
     restart: on-failure
-
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+        
 secrets:
   postgres_db:
     file: ./config/postgres_db
